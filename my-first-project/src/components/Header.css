@@ -1,0 +1,9 @@
+.header {
+    font-family: cursive;
+    text-align: center;
+    font-size: calc(15px + 2vmin);
+    color: rgb(255, 255, 253);
+    padding: 0.1rem;
+    background-color: #503d3dee;
+  }
+  
