@@ -1,0 +1,25 @@
+.card {
+    font-size: 10px;
+    font-family: cursive;
+    color: rgb(101, 22, 121);
+    background-color: #ffffff;
+    border: 5px solid rgb(101, 22, 121);
+    margin-top: 60px;
+    margin-left: 20px;
+    width: 300px;
+    height: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .card-header {
+    font-size: 16px;
+    text-align: center;
+    font-family: cursive;
+    border: 2px solid rgb(13, 13, 14);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+    width: 280px;
+    height: 30px;
+    padding-bottom: 20px;
+  }
