@@ -6,6 +6,7 @@ function Card() {
   const handleChange = () => {
     setChecked(!checked);
   };
+
   return (
     <div className={checked ? "checked-card" : "card"}>
       <div className="card-header">
@@ -14,7 +15,7 @@ function Card() {
           className="card-checkbox"
           type="checkbox"
           onChange={handleChange}
-        ></input>
+        />
       </div>
       <h1>
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
