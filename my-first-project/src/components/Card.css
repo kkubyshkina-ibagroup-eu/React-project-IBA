@@ -1,47 +1,84 @@
 .card {
-    font-size: 10px;
-    font-family: cursive;
-    color: rgb(101, 22, 121);
-    background-color: #ffffff;
-    border: 5px solid rgb(101, 22, 121);
-    margin-top: 60px;
-    margin-left: 20px;
-    width: 300px;
-    height: 250px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .card-header {
-    font-size: 16px;
-    text-align: center;
-    font-family: cursive;
-    border: 2px solid rgb(13, 13, 14);
-    border-top-width: 0px;
-    border-right-width: 0;
-    border-left-width: 0;
-    width: 280px;
-    height: 30px;
-    padding-bottom: 20px;
-  }
-  .card-checkbox {
-    position: absolute;
-    left: 290px;
-    top: 245px;
-    width: 30px;
-    height: 30px;
-  }
- 
-  .checked-card {
-    font-size: 10px;
-    font-family: cursive;
-    color: #0f0f0fee;
-    background-color: #ffffff;
-    border: 5px solid #503d3dee;
-    margin-top: 60px;
-    margin-left: 20px;
-    width: 300px;
-    height: 250px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  
+  font-size: 10px;
+  font-family: cursive;
+  color: rgb(101, 22, 121);
+  background-color: #ffffff;
+  border: 5px solid rgb(101, 22, 121);
+  margin-top: 60px;
+  margin-left: 20px;
+  width: 300px;
+  height: 250px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.card-header {
+  font-size: 32px;
+  text-align: center;
+  font-family: cursive;
+  border: 2px solid rgb(13, 13, 14);
+  border-top-width: 0px;
+  border-right-width: 0;
+  border-left-width: 0;
+  width: 280px;
+  height: 20px;
+  padding-bottom: 33px;
+  padding-top: 15px;
+  font-weight: bold;
+}
+.card-checkbox {
+  position: absolute;
+  left: 290px;
+  top: 245px;
+  width: 30px;
+  height: 30px;
+}
+
+.checked-card {
+  font-size: 10px;
+  font-family: cursive;
+  color: #0f0f0fee;
+  background-color: #ffffff;
+  border: 5px solid #503d3dee;
+  margin-top: 60px;
+  margin-left: 20px;
+  width: 300px;
+  height: 250px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.pencil-button {
+  position: absolute;
+  left: 250px;
+  top: 248px;
+  border: none;
+  background-color: transparent;
+}
+
+.title-form {
+  font-size: 32px;
+  font-family: cursive;
+  font-weight: bold;
+  color: rgb(101, 22, 121);
+  width: 280px;
+  height: 45px;
+  text-align: center;
+}
+
+.text-form {
+  font-size: 20px;
+  font-family: cursive;
+  font-weight: bold;
+  width: 300px;
+  height: 150px;
+  color: rgb(101, 22, 121);
+  margin-top: 15px;
+}
+
+.cancel-button {
+  position: absolute;
+  left: 275px;
+  top: 248px;
+  border: none;
+  background-color: transparent;
+}
