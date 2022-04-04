@@ -44,7 +44,19 @@ function Card() {
   return (
     <div className={checked ? "checked-card" : "card"}>
       <div className="card-header">
-        {!showButton && (
+        {showButton ? (
+          <div>
+            <input
+              className="card-checkbox"
+              type="checkbox"
+              onChange={checkboxHandler}
+            />
+            <button className="pencil-button" onClick={clickPencil}>
+              <BsPencilSquare size={20} />
+            </button>
+            {title}
+          </div>
+        ) : (
           <div>
             <input
               className="title-form"
@@ -64,19 +76,6 @@ function Card() {
             <button className="pencil-button" onClick={clickSave}>
               <BsCheckLg size={20} />
             </button>
-          </div>
-        )}
-        {showButton && (
-          <div>
-            <input
-              className="card-checkbox"
-              type="checkbox"
-              onChange={checkboxHandler}
-            />
-            <button className="pencil-button" onClick={clickPencil}>
-              <BsPencilSquare size={20} />
-            </button>
-            {title}
           </div>
         )}
       </div>
