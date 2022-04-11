@@ -4,82 +4,94 @@ import { BsPencilSquare } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
 import { FcCancel } from "react-icons/fc";
 
-function Card() {
-  const [checked, setChecked] = useState();
-  const checkboxHandler = () => {
-    setChecked(!checked);
+function Card(props) {
+  const cardCheckboxHandler = () => {
+    setCardChecked(!cardChecked);
   };
-  const defaultTitle = "Info";
-  const defaultText =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-  sed do eiusmodtempor incididunt ut labore et dolore magna aliqua.";
+  const defaultTitle = props.title;
+  const defaultText = props.text;
+  const viewOnly = props.viewOnly;
+  const setEditMode = props.setEditMode;
+  const editMode = props.editMode;
 
-  const [showButton, setShowButton] = useState(true);
+  const [cardChecked, setCardChecked] = useState();
   const [title, setTitle] = useState(defaultTitle);
   const [text, setText] = useState(defaultText);
+  const [unsavedText, setUnsavedText] = useState();
+  const [unsavedTitle, setUnsavedTitle] = useState();
 
   const clickPencil = () => {
-    setChecked(false);
-    setShowButton(false);
+    setCardChecked(false);
+    setEditMode(true);
   };
 
   const userInputTitle = (event) => {
-    setTitle(event.target.value);
+    setUnsavedTitle(event.target.value);
   };
 
   const userInputText = (event) => {
-    setText(event.target.value);
+    setUnsavedText(event.target.value);
   };
 
   const clickSave = () => {
-    setShowButton(true);
+    setEditMode(false);
+    unsavedText ? setText(unsavedText) : setText(defaultText);
+    unsavedTitle ? setTitle(unsavedTitle) : setTitle(defaultTitle);
   };
 
   const clickCancel = () => {
-    setTitle(defaultTitle);
-    setText(defaultText);
-    setShowButton(true);
+    setEditMode(false);
   };
 
   return (
-    <div className={checked ? "checked-card" : "card"}>
-      <div className="card-header">
-        {showButton ? (
-          <div>
-            <input
-              className="card-checkbox"
-              type="checkbox"
-              onChange={checkboxHandler}
-            />
-            <button className="pencil-button" onClick={clickPencil}>
-              <BsPencilSquare size={20} />
-            </button>
-            {title}
-          </div>
-        ) : (
-          <div>
-            <input
-              className="title-form"
-              type="text"
-              defaultValue={title}
-              onChange={userInputTitle}
-            />
-            <textarea
-              className="text-form "
-              type="text"
-              defaultValue={text}
-              onChange={userInputText}
-            />
-            <button className="cancel-button" onClick={clickCancel}>
-              <FcCancel size={22} />
-            </button>
-            <button className="pencil-button" onClick={clickSave}>
-              <BsCheckLg size={20} />
-            </button>
-          </div>
-        )}
-      </div>
-      {showButton && <h1>{text}</h1>}
+    <div className={cardChecked ? "checked-card" : "card"}>
+      {editMode ? (
+        <div>
+          <input
+            className="title-form"
+            type="text"
+            defaultValue={title}
+            onChange={userInputTitle}
+          />
+          <button className="cancel-button-edit" onClick={clickCancel}>
+            <FcCancel size={22} />
+          </button>
+          <button className="save-button-edit" onClick={clickSave}>
+            <BsCheckLg size={20} />
+          </button>
+          <textarea
+            className="text-form "
+            type="text"
+            defaultValue={text}
+            onChange={userInputText}
+          />
+        </div>
+      ) : (
+        <div className="card-header">
+          <input
+            className="card-checkbox"
+            type="checkbox"
+            onChange={cardCheckboxHandler}
+          />
+          {title}
+          {!viewOnly ? (
+            <div>
+              <button className="pencil-button" onClick={clickPencil}>
+                <BsPencilSquare size={20} />
+              </button>
+              <button className="cancel-button" onClick={clickCancel}>
+                <FcCancel size={22} />
+              </button>
+              <button className="save-button" onClick={clickSave}>
+                <BsCheckLg size={20} />
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+      {!editMode && <h1>{text}</h1>}
     </div>
   );
 }
