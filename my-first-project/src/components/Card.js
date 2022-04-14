@@ -7,22 +7,21 @@ import { FcCancel } from "react-icons/fc";
 function Card(props) {
   const cardCheckboxHandler = () => {
     setCardChecked(!cardChecked);
+    cardInfo.checked = !cardInfo.checked;
   };
-  const defaultTitle = props.title;
-  const defaultText = props.text;
+  const editMode = props.editMode;
+  const cardInfo = props.cardInfo;
   const viewOnly = props.viewOnly;
   const setEditMode = props.setEditMode;
-  const editMode = props.editMode;
 
   const [cardChecked, setCardChecked] = useState();
-  const [title, setTitle] = useState(defaultTitle);
-  const [text, setText] = useState(defaultText);
-  const [unsavedText, setUnsavedText] = useState();
   const [unsavedTitle, setUnsavedTitle] = useState();
+  const [unsavedText, setUnsavedText] = useState();
 
   const clickPencil = () => {
-    setCardChecked(false);
+    cardInfo.checked = false;
     setEditMode(true);
+    cardInfo.isEdeting = true;
   };
 
   const userInputTitle = (event) => {
@@ -34,23 +33,25 @@ function Card(props) {
   };
 
   const clickSave = () => {
+    if (unsavedTitle) cardInfo.title = unsavedTitle;
+    if (unsavedText) cardInfo.text = unsavedText;
+    cardInfo.isEdeting = false;
     setEditMode(false);
-    unsavedText ? setText(unsavedText) : setText(defaultText);
-    unsavedTitle ? setTitle(unsavedTitle) : setTitle(defaultTitle);
   };
 
   const clickCancel = () => {
     setEditMode(false);
+    cardInfo.isEdeting = false;
   };
 
   return (
-    <div className={cardChecked ? "checked-card" : "card"}>
-      {editMode ? (
+    <div className={cardInfo.checked ? "checked-card" : "card"}>
+      {cardInfo.isEdeting && editMode ? (
         <div>
           <input
             className="title-form"
             type="text"
-            defaultValue={title}
+            defaultValue={cardInfo.title}
             onChange={userInputTitle}
           />
           <button className="cancel-button-edit" onClick={clickCancel}>
@@ -62,36 +63,38 @@ function Card(props) {
           <textarea
             className="text-form "
             type="text"
-            defaultValue={text}
+            defaultValue={cardInfo.text}
             onChange={userInputText}
           />
         </div>
       ) : (
-        <div className="card-header">
-          <input
-            className="card-checkbox"
-            type="checkbox"
-            onChange={cardCheckboxHandler}
-          />
-          {title}
-          {!viewOnly ? (
-            <div>
-              <button className="pencil-button" onClick={clickPencil}>
-                <BsPencilSquare size={20} />
-              </button>
-              <button className="cancel-button" onClick={clickCancel}>
-                <FcCancel size={22} />
-              </button>
-              <button className="save-button" onClick={clickSave}>
-                <BsCheckLg size={20} />
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
+        <div>
+          <div className="card-header">
+            <input
+              className="card-checkbox"
+              type="checkbox"
+              onChange={cardCheckboxHandler}
+            />
+            {cardInfo.title}
+            {!viewOnly ? (
+              <div>
+                <button className="pencil-button" onClick={clickPencil}>
+                  <BsPencilSquare size={20} />
+                </button>
+                <button className="cancel-button" onClick={clickCancel}>
+                  <FcCancel size={22} />
+                </button>
+                <button className="save-button" onClick={clickSave}>
+                  <BsCheckLg size={20} />
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+          <h1>{cardInfo.text}</h1>
         </div>
       )}
-      {!editMode && <h1>{text}</h1>}
     </div>
   );
 }

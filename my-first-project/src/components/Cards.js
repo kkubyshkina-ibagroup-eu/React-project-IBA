@@ -4,10 +4,12 @@ import "./Card.css";
 const Cards = (props) => {
   const [viewOnly, setViewOnly] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const cardInfo = props.cardInfo;
 
   const viewOnlyHandler = () => {
     setViewOnly(!viewOnly);
     setEditMode(false);
+    cardInfo.isEdeting = false;
   };
 
   return (
@@ -19,11 +21,10 @@ const Cards = (props) => {
         onChange={viewOnlyHandler}
       />
       <div className="position">
-        {props.items.map((card) => (
-          <div>
+        {cardInfo.map((card) => (
+          <div key={card.id}>
             <Card
-              title={card.title}
-              text={card.text}
+              cardInfo={card}
               viewOnly={viewOnly}
               setEditMode={setEditMode}
               editMode={editMode}
