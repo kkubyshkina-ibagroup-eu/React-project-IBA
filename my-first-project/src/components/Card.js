@@ -8,17 +8,14 @@ function Card(props) {
   const { cardInfo, viewOnly, cardUpdateHandler } = props;
 
   const cardCheckboxHandler = () => {
-    cardInfo.checked = !cardInfo.checked;
-    cardUpdateHandler(cardInfo);
+    cardUpdateHandler({ ...cardInfo, checked: !cardInfo.checked });
   };
 
   const [unsavedTitle, setUnsavedTitle] = useState();
   const [unsavedText, setUnsavedText] = useState();
 
   const clickPencil = () => {
-    cardInfo.checked = false;
-    cardInfo.isEdeting = true;
-    cardUpdateHandler(cardInfo);
+    cardUpdateHandler({ ...cardInfo, isEdeting: true, checked: false });
   };
 
   const userInputTitle = (event) => {
@@ -30,15 +27,32 @@ function Card(props) {
   };
 
   const clickSave = () => {
-    if (unsavedTitle) cardInfo.title = unsavedTitle;
-    if (unsavedText) cardInfo.text = unsavedText;
-    cardInfo.isEdeting = false;
-    cardUpdateHandler(cardInfo);
+    if (unsavedTitle) {
+      cardUpdateHandler({
+        ...cardInfo,
+        isEdeting: false,
+        title: unsavedTitle,
+      });
+    }
+    if (unsavedText) {
+      cardUpdateHandler({
+        ...cardInfo,
+        isEdeting: false,
+        text: unsavedText,
+      });
+    }
+    if (unsavedTitle && unsavedText) {
+      cardUpdateHandler({
+        ...cardInfo,
+        isEdeting: false,
+        title: unsavedTitle,
+        text: unsavedText,
+      });
+    }
   };
 
   const clickCancel = () => {
-    cardInfo.isEdeting = false;
-    cardUpdateHandler(cardInfo);
+    cardUpdateHandler({ ...cardInfo, isEdeting: false });
   };
 
   return (

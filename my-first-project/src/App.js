@@ -2,34 +2,38 @@ import Header from "./components/Header";
 import cards from "./Constants";
 import Card from "./components/Card";
 import "./components/Header.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [cardState, setCardState] = useState(cards);
-  const [viewOnly, setViewOnly] = useState(false);
-
-  const cardUpdateHandler = (newCard) => {
-    const card = cardState.map((oldCard) => {
-      if (oldCard.id === newCard.id) {
-        const updatedCard = {
-          ...oldCard,
-          checked: newCard.checked,
-          isEdeting: newCard.isEdeting,
-        };
-        return updatedCard;
-      }
-      return oldCard;
-    });
-    setCardState(card);
-  };
+  const [viewOnly, setViewOnly] = useState();
 
   const viewOnlyHandler = () => {
     setViewOnly(!viewOnly);
-    cardState.map((card) => {
-      card.isEdeting = false;
-      cardUpdateHandler(card);
-    });
   };
+
+  const cardUpdateHandler = (newCard) => {
+    setCardState(
+      cardState.map((oldCard) => {
+        if (oldCard.id === newCard.id) {
+          return newCard;
+        }
+        return oldCard;
+      })
+    );
+  };
+
+  useEffect(() => {
+    setCardState(
+      cardState.map((card) => {
+        card = {
+          ...card,
+          isEdeting: false,
+        };
+        return card;
+      })
+    );
+  }, [viewOnly]);
 
   return (
     <div>
