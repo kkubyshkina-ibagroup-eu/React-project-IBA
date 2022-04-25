@@ -12,8 +12,8 @@
   padding-right: 20px;
 }
 .card-header {
-  font-size: 32px;
-  text-align: center;
+  font-size: 25px;
+  text-align: left;
   font-family: cursive;
   border: 2px solid rgb(13, 13, 14);
   border-top-width: 0px;
@@ -26,9 +26,9 @@
   font-weight: bold;
 }
 .card-checkbox {
-  position: absolute;
-  left: 290px;
-  top: 245px;
+  position: relative;
+  left: 250px;
+  top: 10px;
   width: 30px;
   height: 30px;
 }
@@ -48,21 +48,22 @@
 }
 
 .pencil-button {
-  position: absolute;
-  left: 250px;
-  top: 248px;
+  position: relative;
+  left: 210px;
+  bottom: 25px;
   border: none;
   background-color: transparent;
 }
 
 .title-form {
-  font-size: 32px;
+  font-size: 25px;
   font-family: cursive;
   font-weight: bold;
   color: rgb(101, 22, 121);
   width: 280px;
-  height: 45px;
+  height: 40px;
   text-align: center;
+  margin-top: 5px;
 }
 
 .text-form {
@@ -76,9 +77,56 @@
 }
 
 .cancel-button {
+  position: relative;
+  bottom: 25px;
+  left: 110px;
+  border: none;
+  background-color: transparent;
+}
+
+.save-button {
+  position: relative;
+  left: 110px;
+  bottom: 25px;
+  border: none;
+  background-color: transparent;
+}
+
+.position {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app-checkbox {
   position: absolute;
-  left: 275px;
-  top: 248px;
+  left: 150px;
+  top: 160px;
+  width: 30px;
+  height: 30px;
+}
+
+.view-only-header {
+  position: absolute;
+  font-weight: bold;
+  font-size: 25px;
+  left: 25px;
+  top: 160px;
+  color: rgb(101, 22, 121);
+  font-family: cursive;
+}
+
+.save-button-edit {
+  position: relative;
+  left: 190px;
+  bottom: 30px;
+  border: none;
+  background-color: transparent;
+}
+
+.cancel-button-edit {
+  position: relative;
+  left: 190px;
+  bottom: 30px;
   border: none;
   background-color: transparent;
 }
