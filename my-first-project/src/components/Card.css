@@ -97,14 +97,6 @@
   flex-wrap: wrap;
 }
 
-.app-checkbox {
-  position: absolute;
-  left: 150px;
-  top: 160px;
-  width: 30px;
-  height: 30px;
-}
-
 .view-only-header {
   position: absolute;
   font-weight: bold;
