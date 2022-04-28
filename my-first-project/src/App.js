@@ -3,6 +3,16 @@ import cards from "./Constants";
 import Card from "./components/Card";
 import "./components/Header.css";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const ViewOnlyCheckbox = styled.input`
+  accent-color: #651679;
+  position: absolute;
+  left: 150px;
+  top: 160px;
+  width: 30px;
+  height: 30px;
+`;
 
 function App() {
   const [cardState, setCardState] = useState(cards);
@@ -39,11 +49,7 @@ function App() {
     <div>
       <Header />
       <div className="view-only-header">View only</div>
-      <input
-        className="app-checkbox"
-        type="checkbox"
-        onChange={viewOnlyHandler}
-      />
+      <ViewOnlyCheckbox type="checkbox" onChange={viewOnlyHandler} />
       <div className="position">
         {cardState.map((card) => (
           <div key={card.id}>
