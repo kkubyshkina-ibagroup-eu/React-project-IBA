@@ -1,9 +1,9 @@
 import Header from "./components/Header";
 import cards from "./Constants";
-import Card from "./components/Card";
 import "./components/Header.css";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import CardList from "./components/CardList";
 
 const ViewOnlyCheckbox = styled.input`
   accent-color: #651679;
@@ -14,9 +14,26 @@ const ViewOnlyCheckbox = styled.input`
   height: 30px;
 `;
 
+const DeleteButton = styled.button`
+  position: absolute;
+  left: 200px;
+  top: 160px;
+  width: 120px;
+  height: 60px;
+  background-color: #651679;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: left;
+  font-size: 15px;
+  border-radius: 12px;
+  padding-top: 5px;
+`;
+
 function App() {
   const [cardState, setCardState] = useState(cards);
   const [viewOnly, setViewOnly] = useState();
+  const [deleteCards, setDeleteCards] = useState([]);
 
   const viewOnlyHandler = () => {
     setViewOnly(!viewOnly);
@@ -32,7 +49,10 @@ function App() {
       })
     );
   };
-
+  const deletedHandler = (deleteCards) => {
+    console.log(deleteCards);
+    setCardState([...cardState.filter((card) => !deleteCards.includes(card))]);
+  };
   useEffect(() => {
     setCardState(
       cardState.map((card) => {
@@ -45,22 +65,23 @@ function App() {
     );
   }, [viewOnly]);
 
+  useEffect(() => {
+    setDeleteCards(cardState.filter((card) => card.checked));
+  }, [cardState]);
+
   return (
     <div>
       <Header />
       <div className="view-only-header">View only</div>
       <ViewOnlyCheckbox type="checkbox" onChange={viewOnlyHandler} />
-      <div className="position">
-        {cardState.map((card) => (
-          <div key={card.id}>
-            <Card
-              cardInfo={card}
-              viewOnly={viewOnly}
-              cardUpdateHandler={cardUpdateHandler}
-            />
-          </div>
-        ))}
-      </div>
+      <DeleteButton onClick={() => deletedHandler(deleteCards)}>
+        Delete selected cards
+      </DeleteButton>
+      <CardList
+        viewOnly={viewOnly}
+        cardState={cardState}
+        cardUpdateHandler={cardUpdateHandler}
+      />
     </div>
   );
 }
