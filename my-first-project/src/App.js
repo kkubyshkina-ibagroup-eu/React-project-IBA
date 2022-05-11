@@ -33,7 +33,6 @@ const DeleteButton = styled.button`
 function App() {
   const [cardState, setCardState] = useState(cards);
   const [viewOnly, setViewOnly] = useState();
-  const [deleteCards, setDeleteCards] = useState([]);
 
   const viewOnlyHandler = () => {
     setViewOnly(!viewOnly);
@@ -49,10 +48,11 @@ function App() {
       })
     );
   };
-  const deletedHandler = (deleteCards) => {
-    console.log(deleteCards);
-    setCardState([...cardState.filter((card) => !deleteCards.includes(card))]);
+
+  const deletedHandler = () => {
+    setCardState([...cardState.filter((card) => !card.checked)]);
   };
+
   useEffect(() => {
     setCardState(
       cardState.map((card) => {
@@ -65,16 +65,12 @@ function App() {
     );
   }, [viewOnly]);
 
-  useEffect(() => {
-    setDeleteCards(cardState.filter((card) => card.checked));
-  }, [cardState]);
-
   return (
     <div>
       <Header />
       <div className="view-only-header">View only</div>
       <ViewOnlyCheckbox type="checkbox" onChange={viewOnlyHandler} />
-      <DeleteButton onClick={() => deletedHandler(deleteCards)}>
+      <DeleteButton onClick={() => deletedHandler()}>
         Delete selected cards
       </DeleteButton>
       <CardList
