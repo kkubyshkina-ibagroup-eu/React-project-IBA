@@ -30,6 +30,20 @@ const DeleteButton = styled.button`
   padding-top: 5px;
 `;
 
+const AddCard = styled.button`
+  position: absolute;
+  left: 330px;
+  top: 160px;
+  width: 120px;
+  height: 60px;
+  background-color: #651679;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 12px;
+`;
+
 function App() {
   const [cardState, setCardState] = useState(cards);
   const [viewOnly, setViewOnly] = useState();
@@ -53,6 +67,18 @@ function App() {
     setCardState([...cardState.filter((card) => !card.checked)]);
   };
 
+  const addCardHandler = () => {
+    setCardState(() => {
+      const newCardState = [...cardState];
+      newCardState.push({
+        title: "New Card",
+        text: "New Card",
+        id: Math.random().toString(),
+      });
+      return newCardState;
+    });
+  };
+
   useEffect(() => {
     setCardState(
       cardState.map((card) => {
@@ -73,6 +99,7 @@ function App() {
       <DeleteButton onClick={() => deletedHandler()}>
         Delete selected cards
       </DeleteButton>
+      <AddCard onClick={addCardHandler}> Add card</AddCard>
       <CardList
         viewOnly={viewOnly}
         cardState={cardState}
