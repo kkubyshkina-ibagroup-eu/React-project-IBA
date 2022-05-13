@@ -68,15 +68,10 @@ function App() {
   };
 
   const addCardHandler = () => {
-    setCardState(() => {
-      const newCardState = [...cardState];
-      newCardState.push({
-        title: "New Card",
-        text: "New Card",
-        id: Math.random().toString(),
-      });
-      return newCardState;
-    });
+    setCardState([
+      ...cardState,
+      { text: "New Card", title: "New Card", id: Math.random().toString() },
+    ]);
   };
 
   useEffect(() => {
