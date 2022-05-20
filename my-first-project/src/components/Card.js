@@ -2,10 +2,10 @@ import "./Card.css";
 import React, { useState } from "react";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
+import withLoadingDelay from "./withLoadingDelay";
 
 function Card(props) {
   const { cardInfo, viewOnly, cardUpdateHandler } = props;
-
   const [unsavedTitle, setUnsavedTitle] = useState();
   const [unsavedText, setUnsavedText] = useState();
 
@@ -48,4 +48,4 @@ function Card(props) {
   );
 }
 
-export default Card;
+export default withLoadingDelay(Card);
