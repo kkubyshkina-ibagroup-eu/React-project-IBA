@@ -1,9 +1,9 @@
 import Header from "./components/Header";
-import cards from "./Constants";
 import "./components/Header.css";
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import CardList from "./components/CardList";
+import CardContext from "./contex/contex";
 
 const ViewOnlyCheckbox = styled.input`
   accent-color: #651679;
@@ -45,62 +45,19 @@ const AddCard = styled.button`
 `;
 
 function App() {
-  const [cardState, setCardState] = useState(cards);
-  const [viewOnly, setViewOnly] = useState();
-
-  const viewOnlyHandler = () => {
-    setViewOnly(!viewOnly);
-  };
-
-  const cardUpdateHandler = (newCard) => {
-    setCardState(
-      cardState.map((oldCard) => {
-        if (oldCard.id === newCard.id) {
-          return newCard;
-        }
-        return oldCard;
-      })
-    );
-  };
-
-  const deletedHandler = () => {
-    setCardState([...cardState.filter((card) => !card.checked)]);
-  };
-
-  const addCardHandler = () => {
-    setCardState([
-      ...cardState,
-      { text: "New Card", title: "New Card", id: Math.random().toString() },
-    ]);
-  };
-
-  useEffect(() => {
-    setCardState(
-      cardState.map((card) => {
-        card = {
-          ...card,
-          isEdeting: false,
-        };
-        return card;
-      })
-    );
-  }, [viewOnly]);
+  const ctx = useContext(CardContext);
 
   return (
-    <div>
+    <React.Fragment>
       <Header />
       <div className="view-only-header">View only</div>
-      <ViewOnlyCheckbox type="checkbox" onChange={viewOnlyHandler} />
-      <DeleteButton onClick={() => deletedHandler()}>
+      <ViewOnlyCheckbox type="checkbox" onChange={ctx.viewOnlyHandler} />
+      <DeleteButton onClick={() => ctx.deletedHandler()}>
         Delete selected cards
       </DeleteButton>
-      <AddCard onClick={addCardHandler}> Add card</AddCard>
-      <CardList
-        viewOnly={viewOnly}
-        cardState={cardState}
-        cardUpdateHandler={cardUpdateHandler}
-      />
-    </div>
+      <AddCard onClick={ctx.addCardHandler}> Add card</AddCard>
+      <CardList />
+    </React.Fragment>
   );
 }
 

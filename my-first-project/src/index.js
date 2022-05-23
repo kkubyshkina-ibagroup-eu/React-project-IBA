@@ -1,6 +1,11 @@
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { CardContextProvider } from "./contex/contex";
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
+ReactDOM.render(
+  <CardContextProvider>
+    <App />
+  </CardContextProvider>,
+  document.getElementById("root")
+);

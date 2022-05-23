@@ -1,17 +1,15 @@
 import Card from "./Card";
+import React, { useContext } from "react";
+import CardContext from "../contex/contex";
 
-const CardList = (props) => {
-  const { cardState, viewOnly, cardUpdateHandler } = props;
+const CardList = () => {
+  const ctx = useContext(CardContext);
 
   return (
     <div className="position">
-      {cardState.map((card) => (
+      {ctx.cardState.map((card) => (
         <div key={card.id}>
-          <Card
-            cardInfo={card}
-            viewOnly={viewOnly}
-            cardUpdateHandler={cardUpdateHandler}
-          />
+          <Card cardInfo={card} />
         </div>
       ))}
     </div>

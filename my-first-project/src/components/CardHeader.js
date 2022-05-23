@@ -2,20 +2,22 @@ import "./Card.css";
 import { BsPencilSquare } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
 import { FcCancel } from "react-icons/fc";
+import CardContext from "../contex/contex";
+import React, { useContext } from "react";
 
 const CardHeader = (props) => {
-  const { cardInfo, viewOnly, cardUpdateHandler, clickSave, setUnsavedTitle } =
-    props;
+  const ctx = useContext(CardContext);
+  const { cardInfo, clickSave, setUnsavedTitle } = props;
 
   const cardCheckboxHandler = () => {
-    cardUpdateHandler({
+    ctx.cardUpdateHandler({
       ...cardInfo,
       checked: !cardInfo.checked,
     });
   };
 
   const clickPencil = () => {
-    cardUpdateHandler({ ...cardInfo, isEdeting: true, checked: false });
+    ctx.cardUpdateHandler({ ...cardInfo, isEdeting: true, checked: false });
   };
 
   const userInputTitle = (event) => {
@@ -23,7 +25,7 @@ const CardHeader = (props) => {
   };
 
   const clickCancel = () => {
-    cardUpdateHandler({ ...cardInfo, isEdeting: false });
+    ctx.cardUpdateHandler({ ...cardInfo, isEdeting: false });
   };
 
   return (
@@ -51,7 +53,7 @@ const CardHeader = (props) => {
             onChange={cardCheckboxHandler}
           />
           {cardInfo.title}
-          {!viewOnly ? (
+          {!ctx.viewOnly ? (
             <div>
               <button className="pencil-button" onClick={clickPencil}>
                 <BsPencilSquare size={20} />
