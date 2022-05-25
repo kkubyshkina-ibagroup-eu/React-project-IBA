@@ -1,31 +1,34 @@
 import "./Card.css";
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import React, { useState, useContext } from "react";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
 import withLoadingDelay from "./withLoadingDelay";
+import CardContext from "../contex/contex";
 
 function Card(props) {
-  const { cardInfo, viewOnly, cardUpdateHandler } = props;
+  const { cardInfo } = props;
   const [unsavedTitle, setUnsavedTitle] = useState();
   const [unsavedText, setUnsavedText] = useState();
+  const ctx = useContext(CardContext);
 
   const clickSave = () => {
     if (unsavedTitle) {
-      cardUpdateHandler({
+      ctx.cardUpdateHandler({
         ...cardInfo,
         isEdeting: false,
         title: unsavedTitle,
       });
     }
     if (unsavedText) {
-      cardUpdateHandler({
+      ctx.cardUpdateHandler({
         ...cardInfo,
         isEdeting: false,
         text: unsavedText,
       });
     }
     if (unsavedTitle && unsavedText) {
-      cardUpdateHandler({
+      ctx.cardUpdateHandler({
         ...cardInfo,
         isEdeting: false,
         title: unsavedTitle,
@@ -38,8 +41,6 @@ function Card(props) {
     <div className={`card ${cardInfo.checked ? "checked" : ""}`}>
       <CardHeader
         cardInfo={cardInfo}
-        viewOnly={viewOnly}
-        cardUpdateHandler={cardUpdateHandler}
         clickSave={clickSave}
         setUnsavedTitle={setUnsavedTitle}
       />
@@ -47,5 +48,9 @@ function Card(props) {
     </div>
   );
 }
+
+Card.propTypes = {
+  cardInfo: PropTypes.object,
+};
 
 export default withLoadingDelay(Card);
