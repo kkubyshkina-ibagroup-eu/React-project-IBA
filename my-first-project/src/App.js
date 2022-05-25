@@ -52,7 +52,7 @@ function App() {
       <Header />
       <div className="view-only-header">View only</div>
       <ViewOnlyCheckbox type="checkbox" onChange={ctx.viewOnlyHandler} />
-      <DeleteButton onClick={() => ctx.deletedHandler()}>
+      <DeleteButton onClick={ctx.deletedHandler}>
         Delete selected cards
       </DeleteButton>
       <AddCard onClick={ctx.addCardHandler}> Add card</AddCard>

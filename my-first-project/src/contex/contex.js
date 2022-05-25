@@ -3,6 +3,7 @@ import cards from "../Constants";
 
 const CardContext = React.createContext({
   cardState: cards,
+  viewOnly: false,
   deletedHandler: () => {},
   addCardHandler: () => {},
   cardUpdateHandler: () => {},
