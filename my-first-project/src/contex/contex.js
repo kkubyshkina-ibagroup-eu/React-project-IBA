@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import cards from "../Constants";
+import axios from "axios";
 
 const CardContext = React.createContext({
-  cardState: cards,
+  cardState: [],
   viewOnly: false,
   deletedHandler: () => {},
   addCardHandler: () => {},
@@ -11,7 +11,7 @@ const CardContext = React.createContext({
 });
 
 export const CardContextProvider = (props) => {
-  const [cardState, setCardState] = useState(cards);
+  const [cardState, setCardState] = useState([]);
   const [viewOnly, setViewOnly] = useState();
 
   const cardUpdateHandler = (newCard) => {
@@ -51,6 +51,22 @@ export const CardContextProvider = (props) => {
       })
     );
   }, [viewOnly]);
+
+  useEffect(() => {
+    const url =
+      "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
+    axios.get(url).then((resp) => {
+      const cardsData = resp.data.slice(0, 15);
+      const transformedCardsData = cardsData.map((data) => {
+        return {
+          id: data.Number,
+          title: data.Name,
+          text: data.About,
+        };
+      });
+      setCardState(transformedCardsData);
+    });
+  }, []);
 
   return (
     <CardContext.Provider
