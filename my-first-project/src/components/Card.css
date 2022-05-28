@@ -4,7 +4,7 @@
   margin-top: 60px;
   margin-left: 20px;
   width: 300px;
-  height: 250px;
+  height: 280px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -14,7 +14,7 @@
 }
 
 .card-text {
-  font-size: 20px;
+  font-size: 18px;
   font-family: cursive;
   font-weight: bold;
   color: rgb(101, 22, 121);
@@ -25,7 +25,7 @@
 }
 
 .card-header {
-  font-size: 25px;
+  font-size: 21px;
   margin-top: 10px;
   margin-bottom: 10px;
   color: rgb(101, 22, 121);
@@ -45,7 +45,7 @@
 
 .card-checkbox {
   position: relative;
-  left: 250px;
+  left: 255px;
   top: 10px;
   width: 30px;
   height: 30px;
@@ -53,14 +53,14 @@
 
 .pencil-button {
   position: relative;
-  left: 210px;
+  left: 220px;
   bottom: 30px;
   border: none;
   background-color: transparent;
 }
 
 .title-form {
-  font-size: 25px;
+  font-size: 21px;
   font-family: cursive;
   font-weight: bold;
   color: rgb(101, 22, 121);
@@ -71,25 +71,25 @@
 }
 
 .text-form {
-  font-size: 20px;
+  font-size: 18px;
   font-family: cursive;
   font-weight: bold;
   width: 300px;
-  height: 140px;
+  height: 200px;
   color: rgb(101, 22, 121);
 }
 
 .cancel-button {
   position: relative;
   bottom: 30px;
-  left: 110px;
+  left: 120px;
   border: none;
   background-color: transparent;
 }
 
 .save-button {
   position: relative;
-  left: 110px;
+  left: 120px;
   bottom: 30px;
   border: none;
   background-color: transparent;
@@ -113,7 +113,7 @@
 
 .save-button-edit {
   position: relative;
-  left: 190px;
+  left: 200px;
   bottom: 35px;
   border: none;
   background-color: transparent;
@@ -121,7 +121,7 @@
 
 .cancel-button-edit {
   position: relative;
-  left: 190px;
+  left: 205px;
   bottom: 35px;
   border: none;
   background-color: transparent;
