@@ -102,11 +102,11 @@
 }
 
 .view-only-header {
-  position: absolute;
+  position: relative;
   font-weight: bold;
   font-size: 25px;
   left: 25px;
-  top: 160px;
+  top: 20px;
   color: rgb(101, 22, 121);
   font-family: cursive;
 }
