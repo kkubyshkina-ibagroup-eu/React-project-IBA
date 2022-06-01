@@ -32,3 +32,16 @@
   font-weight: bold;
   color: #651679;
 }
+
+.nav a:hover,
+.nav a.active {
+  color: #c7a4cf;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #f5f1f7;
+  position: relative;
+  right: 40px;
+  bottom: 20px;
+}
