@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import CardContext from "../contex/contex";
 import "./Header.css";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 function Header() {
-  const ctx = useContext(CardContext);
-
+  const cards = useSelector((state) => state.cards.cards);
   return (
     <div className="header">
       <h1> My first application! </h1>
@@ -15,7 +13,7 @@ function Header() {
       </nav>
       <button className="counter">
         Cards
-        <span className="counter-number">{ctx.cardState.length}</span>
+        <span className="counter-number">{cards.length}</span>
       </button>
     </div>
   );

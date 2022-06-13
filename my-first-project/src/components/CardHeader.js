@@ -2,22 +2,32 @@ import "./Card.css";
 import { BsPencilSquare } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
 import { FcCancel } from "react-icons/fc";
-import CardContext from "../contex/contex";
-import React, { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cardsActions } from "../store/cardsSlice";
+import React, { useEffect } from "react";
 
 const CardHeader = (props) => {
-  const ctx = useContext(CardContext);
+  const dispatch = useDispatch();
+  const viewOnly = useSelector((state) => state.cards.viewOnly);
   const { cardInfo, clickSave, setUnsavedTitle } = props;
 
   const cardCheckboxHandler = () => {
-    ctx.cardUpdateHandler({
-      ...cardInfo,
-      checked: !cardInfo.checked,
-    });
+    dispatch(
+      cardsActions.updateCard({
+        ...cardInfo,
+        checked: !cardInfo.checked,
+      })
+    );
   };
 
   const clickPencil = () => {
-    ctx.cardUpdateHandler({ ...cardInfo, isEdeting: true, checked: false });
+    dispatch(
+      cardsActions.updateCard({
+        ...cardInfo,
+        isEdeting: true,
+        checked: false,
+      })
+    );
   };
 
   const userInputTitle = (event) => {
@@ -25,8 +35,17 @@ const CardHeader = (props) => {
   };
 
   const clickCancel = () => {
-    ctx.cardUpdateHandler({ ...cardInfo, isEdeting: false });
+    dispatch(
+      cardsActions.updateCard({
+        ...cardInfo,
+        isEdeting: false,
+      })
+    );
   };
+
+  useEffect(() => {
+    dispatch(cardsActions.updateCard({ ...cardInfo, isEdeting: false }));
+  }, [viewOnly, dispatch]);
 
   return (
     <div className={`card-header ${cardInfo.checked ? "checked" : ""}`}>
@@ -53,7 +72,7 @@ const CardHeader = (props) => {
             onChange={cardCheckboxHandler}
           />
           {cardInfo.title}
-          {!ctx.viewOnly ? (
+          {!viewOnly ? (
             <div>
               <button className="pencil-button" onClick={clickPencil}>
                 <BsPencilSquare size={20} />

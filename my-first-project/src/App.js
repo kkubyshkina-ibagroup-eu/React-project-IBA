@@ -1,12 +1,15 @@
 import Header from "./components/Header";
 import "./components/Header.css";
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import CardList from "./components/CardList";
-import CardContext from "./contex/contex";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import SignInForm from "./components/SignInForm";
+import CardById from "./components/CardById";
+
+import { useDispatch } from "react-redux/es/exports";
+import { cardsActions, getCardsData } from "./store/cardsSlice";
 
 const ViewOnlyCheckbox = styled.input`
   accent-color: #651679;
@@ -48,7 +51,11 @@ const AddCard = styled.button`
 `;
 
 function App() {
-  const ctx = useContext(CardContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCardsData());
+  }, [dispatch]);
 
   return (
     <React.Fragment>
@@ -61,18 +68,31 @@ function App() {
               <div className="view-only-header">View only</div>
               <ViewOnlyCheckbox
                 type="checkbox"
-                onChange={ctx.viewOnlyHandler}
+                onChange={() => {
+                  dispatch(cardsActions.setViewOnly());
+                }}
               />
-              <DeleteButton onClick={ctx.deletedHandler}>
+              <DeleteButton
+                onClick={() => {
+                  dispatch(cardsActions.deleteCard());
+                }}
+              >
                 Delete selected cards
               </DeleteButton>
-              <AddCard onClick={ctx.addCardHandler}> Add card</AddCard>
+              <AddCard
+                onClick={() => {
+                  dispatch(cardsActions.addCard());
+                }}
+              >
+                Add card
+              </AddCard>
               <CardList />
             </main>
           }
         />
         <Route path="*" element={<NotFound />} />
         <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/card/:id" element={<CardById />} />
       </Routes>
     </React.Fragment>
   );
