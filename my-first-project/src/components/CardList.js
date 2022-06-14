@@ -1,13 +1,12 @@
 import Card from "./Card";
-import React, { useContext } from "react";
-import CardContext from "../contex/contex";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const CardList = () => {
-  const ctx = useContext(CardContext);
+  const cards = useSelector((state) => state.cards.cards);
 
   return (
     <div className="position">
-      {ctx.cardState.map((card) => (
+      {cards.map((card) => (
         <div key={card.id}>
           <Card cardInfo={card} />
         </div>

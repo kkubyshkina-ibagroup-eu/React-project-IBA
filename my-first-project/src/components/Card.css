@@ -18,6 +18,7 @@
   font-family: cursive;
   font-weight: bold;
   color: rgb(101, 22, 121);
+  text-decoration: none;
 }
 
 .card-text.checked {

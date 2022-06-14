@@ -1,9 +1,22 @@
 import "./Card.css";
+import { Link } from "react-router-dom";
 
 const CardBody = (props) => {
   const { cardInfo, setUnsavedText } = props;
   const userInputText = (event) => {
     setUnsavedText(event.target.value);
+  };
+
+  const clickLinkHandler = (event) => {
+    switch (event.detail) {
+      case 1:
+        event.preventDefault();
+        break;
+      case 2:
+        break;
+      default:
+        return;
+    }
   };
 
   return (
@@ -16,7 +29,13 @@ const CardBody = (props) => {
           onChange={userInputText}
         />
       ) : (
-        <div>{cardInfo.text}</div>
+        <Link
+          to={`/card/${cardInfo.id}`}
+          className={`card-text ${props.cardInfo.checked ? "checked" : ""}`}
+          onClick={clickLinkHandler}
+        >
+          {cardInfo.text}
+        </Link>
       )}
     </div>
   );
