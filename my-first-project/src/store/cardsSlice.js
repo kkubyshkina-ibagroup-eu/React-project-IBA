@@ -1,23 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getCardsData = createAsyncThunk(
-  "cards/getCardsData",
-  async (_, { dispatch }) => {
-    const url =
-      "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
-    const res = await axios.get(url);
-    const cardsData = res.data.slice(0, 15);
-    const transformedCardsData = cardsData.map((data) => {
-      return {
-        id: data.Number,
-        title: data.Name,
-        text: data.About,
-      };
-    });
-    dispatch(cardsActions.setCardsData(transformedCardsData));
-  }
-);
+export const getCardsData = () => async (dispatch) => {
+  const url =
+    "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json";
+  const res = await axios.get(url);
+  const cardsData = res.data.slice(0, 15);
+  const transformedCardsData = cardsData.map((data) => {
+    return {
+      id: data.Number,
+      title: data.Name,
+      text: data.About,
+    };
+  });
+  dispatch(cardsActions.setCardsData(transformedCardsData));
+};
 
 const initialState = { cards: [], viewOnly: false };
 
@@ -27,6 +24,7 @@ const cardsSlice = createSlice({
   reducers: {
     setCardsData: (state, action) => {
       state.cards = action.payload;
+      console.log(action);
     },
     setViewOnly: (state) => {
       state.viewOnly = !state.viewOnly;
@@ -49,6 +47,7 @@ const cardsSlice = createSlice({
         }
         return card;
       });
+      console.log(action);
     },
   },
 });
