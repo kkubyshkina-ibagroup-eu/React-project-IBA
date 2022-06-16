@@ -24,7 +24,6 @@ const cardsSlice = createSlice({
   reducers: {
     setCardsData: (state, action) => {
       state.cards = action.payload;
-      console.log(action);
     },
     setViewOnly: (state) => {
       state.viewOnly = !state.viewOnly;
@@ -47,7 +46,6 @@ const cardsSlice = createSlice({
         }
         return card;
       });
-      console.log(action);
     },
   },
 });
