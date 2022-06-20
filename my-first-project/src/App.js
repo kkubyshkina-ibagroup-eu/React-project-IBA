@@ -7,23 +7,14 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import SignInForm from "./components/SignInForm";
 import CardById from "./components/CardById";
-
 import { useDispatch } from "react-redux/es/exports";
 import { cardsActions, getCardsData } from "./store/cardsSlice";
-
-const ViewOnlyCheckbox = styled.input`
-  accent-color: #651679;
-  position: relative;
-  left: 150px;
-  bottom: 10px;
-  width: 30px;
-  height: 30px;
-`;
+import Settings from "./components/Settings";
 
 const DeleteButton = styled.button`
-  position: absolute;
-  left: 200px;
-  top: 200px;
+  position: relative;
+  left: 180px;
+  top: 4px;
   width: 120px;
   height: 60px;
   background-color: #651679;
@@ -37,9 +28,9 @@ const DeleteButton = styled.button`
 `;
 
 const AddCard = styled.button`
-  position: absolute;
-  left: 330px;
-  top: 200px;
+  position: relative;
+  left: 200px;
+  top: 20px;
   width: 120px;
   height: 60px;
   background-color: #651679;
@@ -65,13 +56,6 @@ function App() {
           path="/home"
           element={
             <main>
-              <div className="view-only-header">View only</div>
-              <ViewOnlyCheckbox
-                type="checkbox"
-                onChange={() => {
-                  dispatch(cardsActions.setViewOnly());
-                }}
-              />
               <DeleteButton
                 onClick={() => {
                   dispatch(cardsActions.deleteCard());
@@ -93,6 +77,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/card/:id" element={<CardById />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </React.Fragment>
   );
