@@ -1,6 +1,9 @@
 import InputFieldValidation from "./InputFieldValidation";
 import InputField from "./InputField";
 import "./SignInForm.css";
+import { useDispatch } from "react-redux";
+import { userActions } from "../store/userSlice";
+
 const SignInForm = () => {
   const {
     value: enteredEmail,
@@ -27,10 +30,18 @@ const SignInForm = () => {
     formIsValid = true;
   }
 
+  const dispatch = useDispatch();
+  const admin =
+    enteredEmail === "testAdmin@gmail.com" && enteredPassword === "12345yuiopp";
+
   const formSubmissionHandler = (event) => {
     event.preventDefault();
     resetEmailInput();
     resetPasswordInput();
+    localStorage.setItem("login", enteredEmail);
+    localStorage.setItem("password", enteredPassword);
+    dispatch(userActions.loginUser());
+    if (admin) dispatch(userActions.adminMode());
   };
 
   const emailInputClass = `form-field ${emailHasError ? "invalid" : ""}`;

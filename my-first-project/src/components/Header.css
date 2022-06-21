@@ -8,9 +8,9 @@
 }
 
 .counter {
-  position: absolute;
-  left: 1000px;
-  top: 60px;
+  position: relative;
+  left: 540px;
+  bottom: 40px;
   width: 100px;
   height: 40px;
   background-color: #651679;
@@ -41,7 +41,17 @@
 .nav a {
   text-decoration: none;
   color: #f5f1f7;
-  position: relative;
-  right: 40px;
-  bottom: 20px;
+}
+
+.sign-out {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.sign-out:hover,
+.sign-out.active {
+  color: #c7a4cf;
 }
