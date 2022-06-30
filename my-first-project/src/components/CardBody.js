@@ -14,15 +14,14 @@ const CardBody = (props) => {
         break;
       case 2:
         break;
-      default:
-        return;
     }
   };
 
   return (
-    <div className={`card-text ${props.cardInfo.checked ? "checked" : ""}`}>
+    <div>
       {cardInfo.isEdeting ? (
         <textarea
+          data-testid="input-field"
           className="text-form "
           type="text"
           defaultValue={cardInfo.text}
@@ -30,8 +29,9 @@ const CardBody = (props) => {
         />
       ) : (
         <Link
+          data-testid="link to CardById"
           to={`/card/${cardInfo.id}`}
-          className={`card-text ${props.cardInfo.checked ? "checked" : ""}`}
+          className={`card-text ${cardInfo.checked ? "checked" : ""}`}
           onClick={clickLinkHandler}
         >
           {cardInfo.text}
