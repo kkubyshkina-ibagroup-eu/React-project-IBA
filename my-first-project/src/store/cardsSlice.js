@@ -16,7 +16,12 @@ export const getCardsData = () => async (dispatch) => {
   dispatch(cardsActions.setCardsData(transformedCardsData));
 };
 
-const initialState = { cards: [], viewOnly: false };
+const initialState = {
+  cards: [],
+  viewOnly: false,
+  unsavedTitle: "",
+  unsavedText: "",
+};
 
 const cardsSlice = createSlice({
   name: "cards",
@@ -46,6 +51,12 @@ const cardsSlice = createSlice({
         }
         return card;
       });
+    },
+    setUnsavedTitle: (state, action) => {
+      state.unsavedTitle = action.payload;
+    },
+    setUnsavedText: (state, action) => {
+      state.unsavedText = action.payload;
     },
   },
 });

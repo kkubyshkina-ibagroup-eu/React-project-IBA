@@ -9,7 +9,9 @@ import React, { useEffect } from "react";
 const CardHeader = (props) => {
   const dispatch = useDispatch();
   const viewOnly = useSelector((state) => state.cards.viewOnly);
-  const { cardInfo, clickSave, setUnsavedTitle } = props;
+  const unsavedTitle = useSelector((state) => state.cards.unsavedTitle);
+  const unsavedText = useSelector((state) => state.cards.unsavedText);
+  const { cardInfo } = props;
 
   const cardCheckboxHandler = () => {
     dispatch(
@@ -30,8 +32,39 @@ const CardHeader = (props) => {
     );
   };
 
+  const clickSave = () => {
+    if (unsavedText) {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          text: unsavedText,
+        })
+      );
+    }
+    if (unsavedTitle) {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          title: unsavedTitle,
+        })
+      );
+    }
+    if (unsavedTitle && unsavedText) {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          title: unsavedTitle,
+          text: unsavedText,
+        })
+      );
+    }
+  };
+
   const userInputTitle = (event) => {
-    setUnsavedTitle(event.target.value);
+    dispatch(cardsActions.setUnsavedTitle(event.target.value));
   };
 
   const clickCancel = () => {
@@ -55,7 +88,7 @@ const CardHeader = (props) => {
       {cardInfo.isEdeting ? (
         <div>
           <input
-            data-testid="input-field"
+            data-testid="input-title-field"
             className="title-form"
             type="text"
             defaultValue={cardInfo.title}

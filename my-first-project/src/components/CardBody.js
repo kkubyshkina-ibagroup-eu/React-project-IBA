@@ -1,10 +1,14 @@
 import "./Card.css";
 import { Link } from "react-router-dom";
+import { cardsActions } from "../store/cardsSlice";
+import { useDispatch } from "react-redux";
 
 const CardBody = (props) => {
-  const { cardInfo, setUnsavedText } = props;
+  const { cardInfo } = props;
+  const dispatch = useDispatch();
+
   const userInputText = (event) => {
-    setUnsavedText(event.target.value);
+    dispatch(cardsActions.setUnsavedText(event.target.value));
   };
 
   const clickLinkHandler = (event) => {
@@ -21,7 +25,7 @@ const CardBody = (props) => {
     <div>
       {cardInfo.isEdeting ? (
         <textarea
-          data-testid="input-field"
+          data-testid="input-text-field"
           className="text-form "
           type="text"
           defaultValue={cardInfo.text}
