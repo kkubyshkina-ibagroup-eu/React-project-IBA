@@ -8,10 +8,10 @@ describe("CardBody component", () => {
   test("render correct CardBody component items if isEditable mode is on", () => {
     render(
       <BrowserRouter>
-        <CardBody cardInfo={{ isEdeting: true }} setUnsavedText={() => {}} />
+        <CardBody cardInfo={{ isEdeting: true }} />
       </BrowserRouter>
     );
-    const inputField = screen.getByTestId("input-field");
+    const inputField = screen.getByTestId("input-text-field");
     expect(inputField).toBeInTheDocument();
     fireEvent.change(inputField, { target: { value: "blabla" } });
     expect(inputField.value).toBe("blabla");

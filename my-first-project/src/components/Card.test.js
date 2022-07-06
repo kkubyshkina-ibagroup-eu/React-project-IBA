@@ -27,5 +27,18 @@ describe("Card component", () => {
     expect(card).toHaveTextContent(
       "Bulbasaur can be seen napping in bright sunlight."
     );
+    expect(card).toHaveClass("card");
+  });
+
+  test("The style of checked card", async () => {
+    render(
+      <BrowserRouter>
+        <Card cardInfo={{ checked: true }} />
+      </BrowserRouter>
+    );
+    const card = await waitFor(() => screen.findByTestId("card-component"), {
+      timeout: 2000,
+    });
+    expect(card).toHaveClass("card checked");
   });
 });

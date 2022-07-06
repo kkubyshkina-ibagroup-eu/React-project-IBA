@@ -2,24 +2,31 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import CardHeader from "./CardHeader";
+import CardBody from "./CardBody";
 import { render, screen, fireEvent } from "./customRender";
 
 describe("CardHeader component", () => {
-  test("render correct CardHeader component items if isEditable mode is on", () => {
+  test("render correct CardHeader component items if isEditable mode is on and test save button", () => {
     render(
       <BrowserRouter>
-        <CardHeader cardInfo={{ isEdeting: true }} setUnsavedTitle={() => {}} />
+        <CardHeader cardInfo={{ isEdeting: true }} />
+        <CardBody cardInfo={{ isEdeting: true }} />
       </BrowserRouter>
     );
-    const inputField = screen.getByTestId("input-field");
+    const inputTitleField = screen.getByTestId("input-title-field");
+    const inputTextField = screen.getByTestId("input-text-field");
     const saveBtn = screen.getByTestId("save-button-edit");
     const cancelBtn = screen.getByTestId("cancel-button-edit");
     userEvent.click(cancelBtn);
-    fireEvent.change(inputField, { target: { value: "blabla" } });
-    expect(inputField.value).toBe("blabla");
+    fireEvent.change(inputTitleField, { target: { value: "bla" } });
+    userEvent.click(saveBtn);
+    expect(inputTitleField.value).toBe("bla");
     const cardCheckbox = screen.queryByTestId("card-checbox");
     expect(cardCheckbox).not.toBeInTheDocument();
-    expect(inputField).toBeInTheDocument();
+    fireEvent.change(inputTextField, { target: { value: "bla" } });
+    userEvent.click(saveBtn);
+    expect(inputTextField.value).toBe("bla");
+    expect(inputTitleField).toBeInTheDocument();
     expect(saveBtn).toBeInTheDocument();
     expect(cancelBtn).toBeInTheDocument();
     expect(screen.queryByTestId("pencil-button")).not.toBeInTheDocument();
