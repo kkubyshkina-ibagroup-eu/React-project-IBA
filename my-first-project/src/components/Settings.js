@@ -1,6 +1,6 @@
 import "./NotFound.css";
 import styled from "styled-components";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux";
 import { cardsActions } from "../store/cardsSlice";
 import { Fragment } from "react";
 
@@ -18,6 +18,7 @@ const Settings = () => {
     <Fragment>
       <div className="view-only-header">View only</div>
       <ViewOnlyCheckbox
+        data-testid="view-only-checkbox"
         type="checkbox"
         onChange={() => {
           dispatch(cardsActions.setViewOnly());
