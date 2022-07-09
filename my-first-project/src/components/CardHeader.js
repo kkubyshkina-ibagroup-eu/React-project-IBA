@@ -42,15 +42,6 @@ const CardHeader = (props) => {
         })
       );
     }
-    if (unsavedTitle) {
-      dispatch(
-        cardsActions.updateCard({
-          ...cardInfo,
-          isEdeting: false,
-          title: unsavedTitle,
-        })
-      );
-    }
     if (unsavedTitle && unsavedText) {
       dispatch(
         cardsActions.updateCard({
@@ -58,6 +49,14 @@ const CardHeader = (props) => {
           isEdeting: false,
           title: unsavedTitle,
           text: unsavedText,
+        })
+      );
+    } else {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          title: unsavedTitle,
         })
       );
     }
