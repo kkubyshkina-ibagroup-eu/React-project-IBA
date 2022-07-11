@@ -9,7 +9,9 @@ import React, { useEffect } from "react";
 const CardHeader = (props) => {
   const dispatch = useDispatch();
   const viewOnly = useSelector((state) => state.cards.viewOnly);
-  const { cardInfo, clickSave, setUnsavedTitle } = props;
+  const unsavedTitle = useSelector((state) => state.cards.unsavedTitle);
+  const unsavedText = useSelector((state) => state.cards.unsavedText);
+  const { cardInfo } = props;
 
   const cardCheckboxHandler = () => {
     dispatch(
@@ -30,8 +32,38 @@ const CardHeader = (props) => {
     );
   };
 
+  const clickSave = () => {
+    if (unsavedText) {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          text: unsavedText,
+        })
+      );
+    }
+    if (unsavedTitle && unsavedText) {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          title: unsavedTitle,
+          text: unsavedText,
+        })
+      );
+    } else {
+      dispatch(
+        cardsActions.updateCard({
+          ...cardInfo,
+          isEdeting: false,
+          title: unsavedTitle,
+        })
+      );
+    }
+  };
+
   const userInputTitle = (event) => {
-    setUnsavedTitle(event.target.value);
+    dispatch(cardsActions.setUnsavedTitle(event.target.value));
   };
 
   const clickCancel = () => {
@@ -48,25 +80,38 @@ const CardHeader = (props) => {
   }, [viewOnly, dispatch]);
 
   return (
-    <div className={`card-header ${cardInfo.checked ? "checked" : ""}`}>
+    <div
+      data-testid="card-header"
+      className={`card-header ${cardInfo.checked ? "checked" : ""}`}
+    >
       {cardInfo.isEdeting ? (
         <div>
           <input
+            data-testid="input-title-field"
             className="title-form"
             type="text"
             defaultValue={cardInfo.title}
             onChange={userInputTitle}
           />
-          <button className="cancel-button-edit" onClick={clickCancel}>
+          <button
+            data-testid="cancel-button-edit"
+            className="cancel-button-edit"
+            onClick={clickCancel}
+          >
             <FcCancel size={22} />
           </button>
-          <button className="save-button-edit" onClick={clickSave}>
+          <button
+            data-testid="save-button-edit"
+            className="save-button-edit"
+            onClick={clickSave}
+          >
             <BsCheckLg size={20} />
           </button>
         </div>
       ) : (
         <div>
           <input
+            data-testid="card-checbox"
             className="card-checkbox"
             type="checkbox"
             onChange={cardCheckboxHandler}
@@ -74,13 +119,25 @@ const CardHeader = (props) => {
           {cardInfo.title}
           {!viewOnly ? (
             <div>
-              <button className="pencil-button" onClick={clickPencil}>
+              <button
+                data-testid="pencil-button"
+                className="pencil-button"
+                onClick={clickPencil}
+              >
                 <BsPencilSquare size={20} />
               </button>
-              <button className="cancel-button" onClick={clickCancel}>
+              <button
+                data-testid="cancel-button"
+                className="cancel-button"
+                onClick={clickCancel}
+              >
                 <FcCancel size={22} />
               </button>
-              <button className="save-button" onClick={clickSave}>
+              <button
+                data-testid="save-button"
+                className="save-button"
+                onClick={clickSave}
+              >
                 <BsCheckLg size={20} />
               </button>
             </div>
