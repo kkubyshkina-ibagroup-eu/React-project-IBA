@@ -1,15 +1,12 @@
 import Header from "./components/Header";
 import "./components/Header.css";
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import styled from "styled-components";
 import CardList from "./components/CardList";
 import { Route, Routes } from "react-router-dom";
-import NotFound from "./components/NotFound";
-import SignInForm from "./components/SignInForm";
-import CardById from "./components/CardById";
 import { useDispatch } from "react-redux/es/exports";
 import { cardsActions, getCardsData } from "./store/cardsSlice";
-import Settings from "./components/Settings";
+import usePrompt from "./hooks/usePrompt";
 
 const DeleteButton = styled.button`
   position: relative;
@@ -41,6 +38,11 @@ const AddCard = styled.button`
   border-radius: 12px;
 `;
 
+const NotFound = React.lazy(() => import("./components/NotFound"));
+const SignInForm = React.lazy(() => import("./components/SignInForm"));
+const CardById = React.lazy(() => import("./components/CardById"));
+const Settings = React.lazy(() => import("./components/Settings"));
+
 function App() {
   const dispatch = useDispatch();
 
@@ -51,34 +53,37 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      <Routes>
-        <Route
-          path="/home"
-          element={
-            <main>
-              <DeleteButton
-                onClick={() => {
-                  dispatch(cardsActions.deleteCard());
-                }}
-              >
-                Delete selected cards
-              </DeleteButton>
-              <AddCard
-                onClick={() => {
-                  dispatch(cardsActions.addCard());
-                }}
-              >
-                Add card
-              </AddCard>
-              <CardList />
-            </main>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/card/:id" element={<CardById />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      <Suspense fallback={<p>Is loading</p>}>
+        <Routes>
+          <Route
+            path="/home"
+            element={
+              <main>
+                {usePrompt("How old are you?", 5000)}
+                <DeleteButton
+                  onClick={() => {
+                    dispatch(cardsActions.deleteCard());
+                  }}
+                >
+                  Delete selected cards
+                </DeleteButton>
+                <AddCard
+                  onClick={() => {
+                    dispatch(cardsActions.addCard());
+                  }}
+                >
+                  Add card
+                </AddCard>
+                <CardList />
+              </main>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/sign-in" element={<SignInForm />} />
+          <Route path="/card/:id" element={<CardById />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </Suspense>
     </React.Fragment>
   );
 }
