@@ -9,6 +9,7 @@ import React, { useEffect } from "react";
 const CardHeader = (props) => {
   const dispatch = useDispatch();
   const viewOnly = useSelector((state) => state.cards.viewOnly);
+  const userMode = useSelector((state) => state.user.isLogin);
   const unsavedTitle = useSelector((state) => state.cards.unsavedTitle);
   const unsavedText = useSelector((state) => state.cards.unsavedText);
   const { cardInfo } = props;
@@ -117,7 +118,7 @@ const CardHeader = (props) => {
             onChange={cardCheckboxHandler}
           />
           {cardInfo.title}
-          {!viewOnly ? (
+          {!viewOnly && userMode ? (
             <div>
               <button
                 data-testid="pencil-button"

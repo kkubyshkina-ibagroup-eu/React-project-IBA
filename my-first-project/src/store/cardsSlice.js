@@ -34,7 +34,7 @@ const cardsSlice = createSlice({
       state.viewOnly = !state.viewOnly;
     },
     addCard: (state) => {
-      state.cards.push({
+      state.cards.unshift({
         text: "New Card",
         title: "New Card",
         id: Math.random().toString(),
