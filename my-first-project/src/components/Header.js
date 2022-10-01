@@ -12,7 +12,7 @@ function Header() {
   return (
     <div className="header">
       {!isLogin ? (
-        <h1> My first application! </h1>
+        <h1> Welcome, User </h1>
       ) : (
         <h1> Welcome {localStorage.getItem("login")}</h1>
       )}

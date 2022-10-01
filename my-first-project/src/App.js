@@ -1,12 +1,12 @@
 import Header from "./components/Header";
 import "./components/Header.css";
-import React, { useEffect, Suspense } from "react";
+import "./App.css";
+import React, { useEffect, Suspense, Fragment } from "react";
 import styled from "styled-components";
 import CardList from "./components/CardList";
-import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux/es/exports";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { cardsActions, getCardsData } from "./store/cardsSlice";
-import usePrompt from "./hooks/usePrompt";
 
 const DeleteButton = styled.button`
   position: relative;
@@ -38,17 +38,23 @@ const AddCard = styled.button`
   border-radius: 12px;
 `;
 
-const NotFound = React.lazy(() => import("./components/NotFound"));
 const SignInForm = React.lazy(() => import("./components/SignInForm"));
 const CardById = React.lazy(() => import("./components/CardById"));
 const Settings = React.lazy(() => import("./components/Settings"));
 
 function App() {
   const dispatch = useDispatch();
+  const viewOnlyMode = useSelector((state) => state.cards.viewOnly);
+  const userMode = useSelector((state) => state.user.isLogin);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCardsData());
   }, [dispatch]);
+
+  useEffect(() => {
+    navigate("/home");
+  }, []);
 
   return (
     <React.Fragment>
@@ -59,26 +65,32 @@ function App() {
             path="/home"
             element={
               <main>
-                {usePrompt("How old are you?", 5000)}
-                <DeleteButton
-                  onClick={() => {
-                    dispatch(cardsActions.deleteCard());
-                  }}
-                >
-                  Delete selected cards
-                </DeleteButton>
-                <AddCard
-                  onClick={() => {
-                    dispatch(cardsActions.addCard());
-                  }}
-                >
-                  Add card
-                </AddCard>
+                <div className="view-only-header">
+                  {!userMode &&
+                    "If you want to edit/add or delete cards, please sign in"}
+                </div>
+                {!viewOnlyMode && userMode && (
+                  <Fragment>
+                    <DeleteButton
+                      onClick={() => {
+                        dispatch(cardsActions.deleteCard());
+                      }}
+                    >
+                      Delete selected cards
+                    </DeleteButton>
+                    <AddCard
+                      onClick={() => {
+                        dispatch(cardsActions.addCard());
+                      }}
+                    >
+                      Add card
+                    </AddCard>
+                  </Fragment>
+                )}
                 <CardList />
               </main>
             }
           />
-          <Route path="*" element={<NotFound />} />
           <Route path="/sign-in" element={<SignInForm />} />
           <Route path="/card/:id" element={<CardById />} />
           <Route path="/settings" element={<Settings />} />
